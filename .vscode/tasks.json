@@ -1,0 +1,53 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label"     : "build(clang)",
+            "type"      : "cppbuild",
+            "command"   : "/usr/bin/clang++",
+            "args": [
+                "-std=c++20",
+                "-Wall",
+                "-Wextra",
+                "-O2",
+                "-DONLINE_JUDGE",
+                "-DATCODER",
+                "-mtune=native",
+                "-march=native",
+                "-fconstexpr-depth=2147483647",
+                "-fconstexpr-steps=2147483647",
+                "-I/usr/local/opt/boost/include",
+                "-L/usr/local/opt/boost/lib",
+                "-o",
+                "${workspaceFolder}/bin/a.out",
+                "${file}"
+            ],
+            "options": {
+                "cwd": "${fileDirname}"
+            },
+            "group": "build",
+        },
+        {
+            "label": "rm_bin",
+            "type" : "shell",
+            "command": "rm",
+            "args": [
+                "-rf",
+                "${workspaceFolder}/bin/"
+            ]
+        },
+        {
+            "label": "cleanup",
+            "type" : "shell",
+            "command": "mkdir",
+            "args": [
+                "${workspaceFolder}/bin"
+            ],
+            "dependsOn":[
+                "rm_bin"
+            ]
+        }
+    ]
+}
